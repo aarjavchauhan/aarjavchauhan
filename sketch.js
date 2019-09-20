@@ -34,28 +34,28 @@ function setup() {
   noStroke()
 }
 
-// The draw loop is fully functional but we are not using it for now.
-function draw(myMap) {
-//  console.log(frameCount)
-console.log(capitalArray.length)
+function draw() {
+clear();
+for (var i = 0; i < capitalArray.length; i++) {
+    var latitude = capitalArray[i][0];
+    var longitude = capitalArray[i][1];
+    var radius = 10 + 10 * sin(frameCount / 50);
+    circle(latitude, longitude, radius)
+    }
 }
 
 
 function mapCapitals() {
-  clear();
+
   capitalArray.length = 0;
 
   for (var i = 0; i < 240; i++) {
     const latitude = Number(data[i].CapitalLatitude);
     const longitude = Number(data[i].CapitalLongitude);
     if (myMap.map.getBounds().contains([latitude, longitude])) {
-      //console.log(i)
       const position = myMap.latLngToPixel(latitude, longitude);
-
-      capitalArray.push([latitude, longitude]);
-
-      ellipse(position.x, position.y, 10, 10)
+      capitalArray.push([position.x, position.y]);
+      //ellipse(position.x, position.y, 10, 10)
     }
   }
-//  console.log(frameCount)
 }
